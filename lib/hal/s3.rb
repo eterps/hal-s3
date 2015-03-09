@@ -7,7 +7,7 @@ module HAL
     class DirectoryIndex
       attr_reader :relation_name, :self_url, :uri
 
-      def initialize(uri, relation_name = 'items', self_url: nil)
+      def initialize(uri, relation_name: 'items', self_url: nil)
         @uri           = URI(uri)
         @relation_name = relation_name
         @self_url      = self_url

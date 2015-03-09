@@ -7,11 +7,15 @@ options = {}
 OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename $0} <Globbed S3 URI> [options]"
 
-  opts.on('--self-url=URL', 'The self URL of the diretory index') do |n|
+  opts.on('--self-url=URL', 'The self URL of the directory index') do |n|
     options[:self_url] = n
+  end
+
+  opts.on('--relation-name=RELATION', 'The link relation name of the children') do |n|
+    options[:relation_name] = n
   end
 end.parse!
 
-index = HAL::S3::DirectoryIndex.new(ARGV[0], self_url: options[:self_url])
+index = HAL::S3::DirectoryIndex.new(ARGV[0], options)
 
 puts index.to_json(pretty: true)
