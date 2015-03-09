@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+require 'json'
+require 'optparse'
+require 'hal/s3'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{File.basename $0} <Globbed S3 URI> [options]"
+
+  opts.on('--self-url=URL', 'The self URL of the diretory index') do |n|
+    options[:self_url] = n
+  end
+end.parse!
+
+index = HAL::S3::DirectoryIndex.new(ARGV[0], self_url: options[:self_url])
+
+puts index.to_json(pretty: true)
